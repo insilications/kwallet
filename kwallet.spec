@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : kwallet
 Version  : 5.92.0
-Release  : 47
+Release  : 48
 URL      : file:///aot/build/clearlinux/packages/kwallet/kwallet-v5.92.0.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/kwallet/kwallet-v5.92.0.tar.gz
 Summary  : Secure and unified container for user passwords
@@ -35,6 +35,7 @@ BuildRequires : libxslt-dev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
+Patch1: 0001-Add-secrets-support.patch
 
 %description
 This directory consists of one daemon: kwalletd, and one library, in backend.
@@ -44,6 +45,7 @@ encryption.
 %prep
 %setup -q -n kwallet
 cd %{_builddir}/kwallet
+%patch1 -p1
 
 %build
 unset http_proxy
@@ -51,7 +53,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1647613879
+export SOURCE_DATE_EPOCH=1647614330
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -140,6 +142,7 @@ export ASMFLAGS="${ASMFLAGS_GENERATE}"
 export LIBS="${LIBS_GENERATE}"
  %cmake .. -DCMAKE_BUILD_TYPE=Release \
 -DKDE_INSTALL_CONFDIR=/usr/share/xdg \
+-DBUILD_KWALLETD:BOOL=ON \
 -DBUILD_TESTING:BOOL=ON \
 -DCMAKE_CXX_LINK_PIE_SUPPORTED:BOOL=OFF \
 -DQT_DISABLE_RPATH:BOOL=OFF \
@@ -191,7 +194,7 @@ export LIBRARY_PATH="/usr/local/nvidia/lib64:/usr/local/nvidia/lib64/gbm:/usr/lo
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1647613879
+export SOURCE_DATE_EPOCH=1647614330
 rm -rf %{buildroot}
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
