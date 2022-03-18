@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : kwallet
 Version  : 5.92.0
-Release  : 50
+Release  : 51
 URL      : file:///aot/build/clearlinux/packages/kwallet/kwallet-v5.92.0.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/kwallet/kwallet-v5.92.0.tar.gz
 Summary  : Secure and unified container for user passwords
@@ -108,7 +108,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1647614784
+export SOURCE_DATE_EPOCH=1647623521
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -249,7 +249,7 @@ export LIBRARY_PATH="/usr/local/nvidia/lib64:/usr/local/nvidia/lib64/gbm:/usr/lo
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1647614784
+export SOURCE_DATE_EPOCH=1647623521
 rm -rf %{buildroot}
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
