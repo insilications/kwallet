@@ -1,10 +1,22 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+buildreq-cmake
 buildreq-kde
-libgcrypt-dev
+docbook-xml
+extra-cmake-modules-data
 gpgme
 gpgme-dev
-docbook-xml
+kconfig-dev
+kconfigwidgets-dev
+kcoreaddons-dev
+kdbusaddons-dev
+kdoctools-dev
+ki18n-dev
+knotifications-dev
+kservice-dev
+kwidgetsaddons-dev
+kwindowsystem-dev
+libgcrypt-dev
 libxml2
 libxml2-dev
 libxslt
