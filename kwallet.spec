@@ -5,12 +5,18 @@
 %define keepstatic 1
 Name     : kwallet
 Version  : 5.92.0
-Release  : 49
+Release  : 50
 URL      : file:///aot/build/clearlinux/packages/kwallet/kwallet-v5.92.0.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/kwallet/kwallet-v5.92.0.tar.gz
 Summary  : Secure and unified container for user passwords
 Group    : Development/Tools
 License  : GPL-2.0
+Requires: kwallet-bin = %{version}-%{release}
+Requires: kwallet-data = %{version}-%{release}
+Requires: kwallet-lib = %{version}-%{release}
+Requires: kwallet-man = %{version}-%{release}
+Requires: qca-qt5
+Requires: qca-qt5-dev
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : docbook-xml
@@ -32,6 +38,8 @@ BuildRequires : libxml2
 BuildRequires : libxml2-dev
 BuildRequires : libxslt
 BuildRequires : libxslt-dev
+BuildRequires : qca-qt5
+BuildRequires : qca-qt5-dev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
@@ -39,9 +47,54 @@ Patch1: 0001-Add-secrets-support.patch
 Patch2: 0002-Make-it-use-KF-5.91.0.patch
 
 %description
-This directory consists of one daemon: kwalletd, and one library, in backend.
-KWallet::Backend is used inside kwalletd to manage the actual files and
-encryption.
+No detailed description available
+
+%package bin
+Summary: bin components for the kwallet package.
+Group: Binaries
+Requires: kwallet-data = %{version}-%{release}
+
+%description bin
+bin components for the kwallet package.
+
+
+%package data
+Summary: data components for the kwallet package.
+Group: Data
+
+%description data
+data components for the kwallet package.
+
+
+%package dev
+Summary: dev components for the kwallet package.
+Group: Development
+Requires: kwallet-lib = %{version}-%{release}
+Requires: kwallet-bin = %{version}-%{release}
+Requires: kwallet-data = %{version}-%{release}
+Provides: kwallet-devel = %{version}-%{release}
+Requires: kwallet = %{version}-%{release}
+
+%description dev
+dev components for the kwallet package.
+
+
+%package lib
+Summary: lib components for the kwallet package.
+Group: Libraries
+Requires: kwallet-data = %{version}-%{release}
+
+%description lib
+lib components for the kwallet package.
+
+
+%package man
+Summary: man components for the kwallet package.
+Group: Default
+
+%description man
+man components for the kwallet package.
+
 
 %prep
 %setup -q -n kwallet
@@ -55,7 +108,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1647614533
+export SOURCE_DATE_EPOCH=1647614784
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -196,7 +249,7 @@ export LIBRARY_PATH="/usr/local/nvidia/lib64:/usr/local/nvidia/lib64/gbm:/usr/lo
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1647614533
+export SOURCE_DATE_EPOCH=1647614784
 rm -rf %{buildroot}
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
@@ -287,3 +340,43 @@ popd
 
 %files
 %defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/kwallet-query
+/usr/bin/kwalletd5
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/applications/org.kde.kwalletd5.desktop
+/usr/share/dbus-1/interfaces/kf5_org.kde.KWallet.xml
+/usr/share/dbus-1/services/org.kde.kwalletd5.service
+/usr/share/knotifications5/kwalletd5.notifyrc
+/usr/share/kservices5/kwalletd5.desktop
+/usr/share/qlogging-categories5/kwallet.categories
+/usr/share/qlogging-categories5/kwallet.renamecategories
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/KF5/KWallet/KWallet
+/usr/include/KF5/KWallet/kwallet.h
+/usr/include/KF5/KWallet/kwallet_export.h
+/usr/include/KF5/KWallet/kwallet_version.h
+/usr/lib64/cmake/KF5Wallet/KF5WalletConfig.cmake
+/usr/lib64/cmake/KF5Wallet/KF5WalletConfigVersion.cmake
+/usr/lib64/cmake/KF5Wallet/KF5WalletTargets-release.cmake
+/usr/lib64/cmake/KF5Wallet/KF5WalletTargets.cmake
+/usr/lib64/libKF5Wallet.so
+/usr/lib64/libkwalletbackend5.so
+/usr/lib64/qt5/mkspecs/modules/qt_KWallet.pri
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libKF5Wallet.so.5
+/usr/lib64/libKF5Wallet.so.5.91.0
+/usr/lib64/libkwalletbackend5.so.5
+/usr/lib64/libkwalletbackend5.so.5.91.0
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/kwallet-query.1

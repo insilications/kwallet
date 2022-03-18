@@ -21,3 +21,5 @@ libxml2
 libxml2-dev
 libxslt
 libxslt-dev
+qca-qt5
+qca-qt5-dev
