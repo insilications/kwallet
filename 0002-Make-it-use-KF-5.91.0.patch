@@ -1,0 +1,26 @@
+From a6565f845a6c4de005cb8ef4810f1f7333de4a62 Mon Sep 17 00:00:00 2001
+From: Francisco Boni Neto <boboniboni@gmail.com>
+Date: Fri, 18 Mar 2022 11:41:36 -0300
+Subject: [PATCH 2/2] Make it use KF 5.91.0
+
+---
+ CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8b281b2..d64d841 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,7 +1,7 @@
+ cmake_minimum_required(VERSION 3.16)
+ 
+-set(KF_VERSION "5.93.0") # handled by release scripts
+-set(KF_DEP_VERSION "5.92.0") # handled by release scripts
++set(KF_VERSION "5.91.0") # handled by release scripts
++set(KF_DEP_VERSION "5.91.0") # handled by release scripts
+ project(KWallet VERSION ${KF_VERSION})
+ set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+ 
+-- 
+2.35.1
+
